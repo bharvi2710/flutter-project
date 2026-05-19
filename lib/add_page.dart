@@ -49,7 +49,11 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Student")),
+      appBar: AppBar( iconTheme: const IconThemeData(
+    color: Colors.white, 
+  ),
+        backgroundColor: Color(0xFF1C3A66),
+        title:const Text("Add Student",style: TextStyle(color: Colors.white,),)),
 
       body: Padding(
         padding: const EdgeInsets.all(15),

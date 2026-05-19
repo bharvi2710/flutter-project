@@ -64,7 +64,12 @@ class _EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Student")),
+      appBar: AppBar( 
+        iconTheme: const IconThemeData(color: Colors.white, 
+        ),
+        backgroundColor: Color(0xFF1C3A66),
+        title: const Text("Edit Student",
+        style: TextStyle(color: Colors.white,),)),
 
       body: Padding(
         padding: const EdgeInsets.all(15),

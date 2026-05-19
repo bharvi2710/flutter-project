@@ -44,7 +44,7 @@ class _ListingPageState extends State<ListingPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 75,
-        backgroundColor: const Color.fromARGB(255, 33, 104, 162),
+        backgroundColor: Color(0xFF1C3A66),
 
         title: const Text(
           "My Library",
