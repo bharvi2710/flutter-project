@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'fragment_holder.dart';
+import 'package:flutter_application_1/splash.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: const FragmentHolder(),
+      home: const Splash(),
     );
   }
 }
