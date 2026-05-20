@@ -14,10 +14,10 @@ class _MyWidgetState extends State<MyWidget> {
       decoration: const BoxDecoration(
       gradient: RadialGradient(
             center: Alignment.center,
-            radius: 0.8, // Controls how far the blue glow spreads
+            radius: 0.8, 
             colors: [
-              Color.fromARGB(255, 33, 66, 145), // The deep blue center glow
-              Color.fromARGB(255, 2, 2, 46), // The near-black edges
+              Color.fromARGB(255, 33, 66, 145), 
+              Color.fromARGB(255, 2, 2, 46), 
             ],
             
           ),
