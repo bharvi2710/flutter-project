@@ -12,11 +12,8 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   late TextEditingController ide;
-
   late TextEditingController namee;
-
   late TextEditingController booke;
-
   late DateTime dueDate;
 
   @override
@@ -68,7 +65,7 @@ class _EditPageState extends State<EditPage> {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(45),
 
         child: Column(
           children: [
@@ -81,7 +78,7 @@ class _EditPageState extends State<EditPage> {
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
 
             TextField(
               controller: namee,
@@ -91,7 +88,7 @@ class _EditPageState extends State<EditPage> {
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
 
             TextField(
               controller: booke,
@@ -101,7 +98,7 @@ class _EditPageState extends State<EditPage> {
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 25),
 
             ElevatedButton(
               onPressed: pickDate,
