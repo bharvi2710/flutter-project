@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'MyWidget.dart';
+import 'fragment_holder.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(primarySwatch: Colors.blue),
 
-      home: const ListingPage(),
+      home: const FragmentHolder(),
     );
   }
 }

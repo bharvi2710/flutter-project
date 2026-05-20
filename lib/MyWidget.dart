@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'fragment_holder.dart';
-import 'add_page.dart';
 import 'edit_page.dart';
 
-class ListingPage extends StatefulWidget {
-  const ListingPage({super.key});
+class MyWidget extends StatefulWidget {
+  final VoidCallback refresh;
+
+  const MyWidget({super.key, required this.refresh});
 
   @override
-  State<ListingPage> createState() => _ListingPageState();
+  State<MyWidget> createState() => _MyWidgetState();
 }
 
-class _ListingPageState extends State<ListingPage> {
+class _MyWidgetState extends State<MyWidget> {
   List<StudentData> students = FragmentHolder.students;
 
   DateTime selectedDate = DateTime.now();
@@ -41,152 +42,124 @@ class _ListingPageState extends State<ListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 75,
-        backgroundColor: Color(0xFF1C3A66),
+    return Column(
+      children: [
+        const SizedBox(height: 20),
 
-        title: const Text(
-          "My Library",
-          style: TextStyle(color: Colors.white, fontSize: 25),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+
+            children: [
+              ElevatedButton(
+                onPressed: pickDate,
+
+                child: Text(
+                  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                ),
+              ),
+            ],
+          ),
         ),
 
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AddPage()),
-              );
+        const SizedBox(height: 10),
 
-              setState(() {});
-            },
+        Expanded(
+          child: filteredStudents.isEmpty
+              ? const Center(child: Text("No Data Found"))
+              : ListView.builder(
+                  itemCount: filteredStudents.length,
 
-            icon: const Icon(Icons.add, color: Colors.white),
-          ),
-        ],
-      ),
+                  itemBuilder: (context, index) {
+                    return Card(
+                      margin: const EdgeInsets.all(10),
 
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
 
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.person, color: Colors.blue),
 
-              children: [
-                ElevatedButton(
-                  onPressed: pickDate,
+                                const SizedBox(width: 20),
 
-                  child: Text(
-                    "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-                  ),
-                ),
-              ],
-            ),
-          ),
+                                Text(
+                                  filteredStudents[index].name,
 
-          const SizedBox(height: 10),
-
-          Expanded(
-            child: filteredStudents.isEmpty
-                ? const Center(child: Text("No Data Found"))
-                : ListView.builder(
-                    itemCount: filteredStudents.length,
-
-                    itemBuilder: (context, index) {
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(Icons.person, color: Colors.blue),
-
-                                  const SizedBox(width: 20),
-
-                                  Text(
-                                    filteredStudents[index].name,
-
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
+                            ),
 
-                              const SizedBox(height: 10),
+                            const SizedBox(height: 10),
 
-                              Text("ID : ${filteredStudents[index].id}"),
+                            Text("ID : ${filteredStudents[index].id}"),
 
-                              Text(
-                                "Book : ${filteredStudents[index].bookName}",
-                              ),
+                            Text("Book : ${filteredStudents[index].bookName}"),
 
-                              Text(
-                                "Due Date : "
-                                "${filteredStudents[index].dueDate.day}/"
-                                "${filteredStudents[index].dueDate.month}/"
-                                "${filteredStudents[index].dueDate.year}",
-                              ),
+                            Text(
+                              "Due Date : "
+                              "${filteredStudents[index].dueDate.day}/"
+                              "${filteredStudents[index].dueDate.month}/"
+                              "${filteredStudents[index].dueDate.year}",
+                            ),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
 
-                                children: [
-                                  IconButton(
-                                    onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => EditPage(
-                                            student: filteredStudents[index],
-                                          ),
+                              children: [
+                                IconButton(
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditPage(
+                                          student: filteredStudents[index],
                                         ),
-                                      );
+                                      ),
+                                    );
 
-                                      setState(() {});
-                                    },
+                                    setState(() {});
+                                    widget.refresh();
+                                  },
 
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      color: Colors.blue,
-                                    ),
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.blue,
                                   ),
+                                ),
 
-                                  const Text("Submitted"),
+                                const Text("Submitted"),
 
-                                  Checkbox(
-                                    value: filteredStudents[index].submitted,
+                                Checkbox(
+                                  value: filteredStudents[index].submitted,
 
-                                    onChanged: (value) {
-                                      setState(() {
-                                        filteredStudents[index].submitted =
-                                            value!;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      filteredStudents[index].submitted =
+                                          value!;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
-          ),
-        ],
-      ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ],
     );
   }
 }

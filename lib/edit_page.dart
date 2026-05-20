@@ -11,11 +11,11 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  late TextEditingController idController;
+  late TextEditingController ide;
 
-  late TextEditingController nameController;
+  late TextEditingController namee;
 
-  late TextEditingController bookController;
+  late TextEditingController booke;
 
   late DateTime dueDate;
 
@@ -23,12 +23,9 @@ class _EditPageState extends State<EditPage> {
   void initState() {
     super.initState();
 
-    idController = TextEditingController(text: widget.student.id.toString());
-
-    nameController = TextEditingController(text: widget.student.name);
-
-    bookController = TextEditingController(text: widget.student.bookName);
-
+    ide = TextEditingController(text: widget.student.id.toString());
+    namee = TextEditingController(text: widget.student.name);
+    booke = TextEditingController(text: widget.student.bookName);
     dueDate = widget.student.dueDate;
   }
 
@@ -49,12 +46,9 @@ class _EditPageState extends State<EditPage> {
 
   void updateStudent() {
     setState(() {
-      widget.student.id = int.parse(idController.text);
-
-      widget.student.name = nameController.text;
-
-      widget.student.bookName = bookController.text;
-
+      widget.student.id = int.parse(ide.text);
+      widget.student.name = namee.text;
+      widget.student.bookName = booke.text;
       widget.student.dueDate = dueDate;
     });
 
@@ -64,12 +58,14 @@ class _EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( 
-        iconTheme: const IconThemeData(color: Colors.white, 
-        ),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Color(0xFF1C3A66),
-        title: const Text("Edit Student",
-        style: TextStyle(color: Colors.white,),)),
+        title: const Text(
+          "Edit Student",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
 
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -77,9 +73,8 @@ class _EditPageState extends State<EditPage> {
         child: Column(
           children: [
             TextField(
-              controller: idController,
+              controller: ide,
               keyboardType: TextInputType.number,
-
               decoration: const InputDecoration(
                 labelText: "Student ID",
                 border: OutlineInputBorder(),
@@ -89,8 +84,7 @@ class _EditPageState extends State<EditPage> {
             const SizedBox(height: 15),
 
             TextField(
-              controller: nameController,
-
+              controller: namee,
               decoration: const InputDecoration(
                 labelText: "Student Name",
                 border: OutlineInputBorder(),
@@ -100,8 +94,7 @@ class _EditPageState extends State<EditPage> {
             const SizedBox(height: 15),
 
             TextField(
-              controller: bookController,
-
+              controller: booke,
               decoration: const InputDecoration(
                 labelText: "Book Name",
                 border: OutlineInputBorder(),

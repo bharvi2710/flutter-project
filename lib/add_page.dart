@@ -9,12 +9,9 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  TextEditingController idController = TextEditingController();
-
-  TextEditingController nameController = TextEditingController();
-
-  TextEditingController bookController = TextEditingController();
-
+  TextEditingController idr = TextEditingController();
+  TextEditingController namer = TextEditingController();
+  TextEditingController bookr = TextEditingController();
   DateTime dueDate = DateTime.now();
 
   Future<void> pickDate() async {
@@ -35,9 +32,9 @@ class _AddPageState extends State<AddPage> {
   void addStudent() {
     FragmentHolder.students.add(
       StudentData(
-        id: int.parse(idController.text),
-        name: nameController.text,
-        bookName: bookController.text,
+        id: int.parse(idr.text),
+        name: namer.text,
+        bookName: bookr.text,
         dueDate: dueDate,
         submitted: false,
       ),
@@ -49,51 +46,47 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( iconTheme: const IconThemeData(
-    color: Colors.white, 
-  ),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Color(0xFF1C3A66),
-        title:const Text("Add Student",style: TextStyle(color: Colors.white,),)),
+        title: const Text("Add Student", style: TextStyle(color: Colors.white)),
+      ),
 
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(45),
 
         child: Column(
           children: [
             TextField(
-              controller: idController,
+              controller: idr,
               keyboardType: TextInputType.number,
-
               decoration: const InputDecoration(
                 labelText: "Student ID",
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
 
             TextField(
-              controller: nameController,
-
+              controller: namer,
               decoration: const InputDecoration(
                 labelText: "Student Name",
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
 
             TextField(
-              controller: bookController,
-
+              controller: bookr,
               decoration: const InputDecoration(
                 labelText: "Book Name",
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 15),
-
+            const SizedBox(height: 25),
             ElevatedButton(
               onPressed: pickDate,
               child: Text("${dueDate.day}/${dueDate.month}/${dueDate.year}"),
