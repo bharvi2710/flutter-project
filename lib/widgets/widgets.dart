@@ -12,17 +12,16 @@ class _MyWidgetState extends State<MyWidget> {
     return Scaffold(
       body:Container(
       decoration: const BoxDecoration(
-      gradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [
-    Color(0xFF050C9C),
-    Color(0xFF3572EF),
-    Color(0xFF3ABEF9),
-    Color(0xFFA7E6FF),
-    Color(0xFF00FFAB),
-      ],
-    ),
+      gradient: RadialGradient(
+            center: Alignment.center,
+            radius: 0.8, // Controls how far the blue glow spreads
+            colors: [
+              Color.fromARGB(255, 33, 66, 145), // The deep blue center glow
+              Color.fromARGB(255, 2, 2, 46), // The near-black edges
+            ],
+            
+          ),
+        
   ),
 
         child: Stack(
