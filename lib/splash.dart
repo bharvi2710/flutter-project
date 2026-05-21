@@ -13,7 +13,8 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        PageRouteBuilder(pageBuilder: (context, animation1, animation2) => FragmentHolder(), transitionsBuilder: (context, animation1, animation2, child) {
+        PageRouteBuilder(pageBuilder: (context, animation1, animation2) => FragmentHolder(), 
+        transitionsBuilder: (context, animation1, animation2, child) {
           return FadeTransition(
             opacity: animation1,
             child: child,
