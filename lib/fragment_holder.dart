@@ -60,6 +60,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
     loadData();
   }
 
+  
   Future<void> saveData() async {
 
     SharedPreferences prefs =
@@ -69,7 +70,8 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
     for (int i = 0;i < FragmentHolder.students.length;i++) {
 
-      String student =jsonEncode(FragmentHolder.students[i].toJson(),);
+      String student=jsonEncode(FragmentHolder.students[i].toJson(),);
+
       studentList.add(student);
     }
 
@@ -79,7 +81,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
     );
   }
 
-  
+ 
   Future<void> loadData() async {
 
     SharedPreferences prefs =
@@ -94,16 +96,14 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
       for (int i = 0;i < studentList.length;i++) {
         String studentString =studentList[i];
-
         Map<String, dynamic> studentMap=jsonDecode(studentString);
-
         StudentData student=StudentData.fromJson(studentMap);
-
         FragmentHolder.students.add(student);
       }
-    }
-     else {
 
+    } else {
+
+      
 
       FragmentHolder.students = [
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'fragment_holder.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'fragment_holder.dart';
 
 class EditPage extends StatefulWidget {
   final StudentData student;
@@ -13,18 +14,20 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  late TextEditingController ide;
-  late TextEditingController namee;
-  late TextEditingController booke;
+  late TextEditingController id;
+  late TextEditingController name;
+  late TextEditingController book;
+
   late DateTime dueDate;
 
   @override
   void initState() {
     super.initState();
 
-    ide = TextEditingController(text: widget.student.id.toString());
-    namee = TextEditingController(text: widget.student.name);
-    booke = TextEditingController(text: widget.student.bookName);
+    id = TextEditingController(text: widget.student.id.toString());
+    name = TextEditingController(text: widget.student.name);
+    book = TextEditingController(text: widget.student.bookName);
+
     dueDate = widget.student.dueDate;
   }
 
@@ -42,19 +45,22 @@ class _EditPageState extends State<EditPage> {
       });
     }
   }
-  Future<void>saveData() async {
+
+  Future<void> saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> data= FragmentHolder.students.map((student) => jsonEncode(student.toJson())).toList();
-    await prefs.setStringList('students', data);
+    List<String> data = FragmentHolder.students.map((e) => jsonEncode(e.toJson())).toList();
+
+    await prefs.setStringList("students", data);
   }
 
-  Future<void> updateStudent() async {
-    widget.student.id = int.parse(ide.text);
-    widget.student.name = namee.text;
-    widget.student.bookName = booke.text;
+  void updateStudent() async {
+    widget.student.id = int.parse(id.text);
+    widget.student.name = name.text;
+    widget.student.bookName = book.text;
     widget.student.dueDate = dueDate;
+
     await saveData();
-    setState(() {});
+
     Navigator.pop(context);
   }
 
@@ -76,7 +82,7 @@ class _EditPageState extends State<EditPage> {
         child: Column(
           children: [
             TextField(
-              controller: ide,
+              controller: id,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Student ID",
@@ -87,7 +93,7 @@ class _EditPageState extends State<EditPage> {
             const SizedBox(height: 30),
 
             TextField(
-              controller: namee,
+              controller: name,
               decoration: const InputDecoration(
                 labelText: "Student Name",
                 border: OutlineInputBorder(),
@@ -97,7 +103,7 @@ class _EditPageState extends State<EditPage> {
             const SizedBox(height: 30),
 
             TextField(
-              controller: booke,
+              controller: book,
               decoration: const InputDecoration(
                 labelText: "Book Name",
                 border: OutlineInputBorder(),
@@ -122,4 +128,5 @@ class _EditPageState extends State<EditPage> {
       ),
     );
   }
+
 }
