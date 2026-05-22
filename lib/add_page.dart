@@ -66,7 +66,10 @@ class _AddPageState extends State<AddPage> {
         title: const Text("Add Student", style: TextStyle(color: Colors.white)),
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(
+        child:
+      
+      Padding(
         padding: const EdgeInsets.all(45),
 
         child: Column(
@@ -90,8 +93,8 @@ class _AddPageState extends State<AddPage> {
               ),
             ),
 
-            const SizedBox(height: 30),
 
+            const SizedBox(height: 30),
             TextField(
               controller: book,
               decoration: const InputDecoration(
@@ -107,11 +110,10 @@ class _AddPageState extends State<AddPage> {
             ),
 
             const SizedBox(height: 20),
-
             ElevatedButton(onPressed: addStudent, child: const Text("Add")),
           ],
         ),
-      ),
+      ),)
     );
   }
 }

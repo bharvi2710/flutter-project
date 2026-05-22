@@ -100,11 +100,8 @@ class _FragmentHolderState extends State<FragmentHolder> {
         StudentData student=StudentData.fromJson(studentMap);
         FragmentHolder.students.add(student);
       }
-
-    } else {
-
       
-
+    } else {
       FragmentHolder.students = [
 
         StudentData(
@@ -186,11 +183,9 @@ class _FragmentHolderState extends State<FragmentHolder> {
       ),
 
       body: MyWidget(
-
-        refresh: () {
-
+        students: FragmentHolder.students,
+        onUpdate: () {
           saveData();
-
           setState(() {});
         },
       ),

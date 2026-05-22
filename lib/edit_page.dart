@@ -60,7 +60,6 @@ class _EditPageState extends State<EditPage> {
     widget.student.dueDate = dueDate;
 
     await saveData();
-
     Navigator.pop(context);
   }
 
@@ -76,12 +75,12 @@ class _EditPageState extends State<EditPage> {
         ),
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(45),
-
-        child: Column(
-          children: [
-            TextField(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(45),
+          child: Column(
+            children: [
+              TextField(
               controller: id,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
@@ -125,7 +124,7 @@ class _EditPageState extends State<EditPage> {
             ),
           ],
         ),
-      ),
+      ),),
     );
   }
 
