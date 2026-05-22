@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'fragment_holder.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditPage extends StatefulWidget {
   final StudentData student;
@@ -40,15 +42,19 @@ class _EditPageState extends State<EditPage> {
       });
     }
   }
+  Future<void>saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> data= FragmentHolder.students.map((student) => jsonEncode(student.toJson())).toList();
+    await prefs.setStringList('students', data);
+  }
 
-  void updateStudent() {
-    setState(() {
-      widget.student.id = int.parse(ide.text);
-      widget.student.name = namee.text;
-      widget.student.bookName = booke.text;
-      widget.student.dueDate = dueDate;
-    });
-
+  Future<void> updateStudent() async {
+    widget.student.id = int.parse(ide.text);
+    widget.student.name = namee.text;
+    widget.student.bookName = booke.text;
+    widget.student.dueDate = dueDate;
+    await saveData();
+    setState(() {});
     Navigator.pop(context);
   }
 

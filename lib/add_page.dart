@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'fragment_holder.dart';
+
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -9,9 +12,10 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  TextEditingController idr = TextEditingController();
-  TextEditingController namer = TextEditingController();
-  TextEditingController bookr = TextEditingController();
+  TextEditingController id = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController book = TextEditingController();
+
   DateTime dueDate = DateTime.now();
 
   Future<void> pickDate() async {
@@ -29,16 +33,26 @@ class _AddPageState extends State<AddPage> {
     }
   }
 
-  void addStudent() {
+  Future<void> saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> data = FragmentHolder.students.map((e) => jsonEncode(e.toJson())).toList();
+    await prefs.setStringList("students", data);
+  }
+
+  void addStudent() async {
+    if (id.text.isEmpty || name.text.isEmpty || book.text.isEmpty) return;
+
     FragmentHolder.students.add(
       StudentData(
-        id: int.parse(idr.text),
-        name: namer.text,
-        bookName: bookr.text,
+        id: int.parse(id.text),
+        name: name.text,
+        bookName: book.text,
         dueDate: dueDate,
         submitted: false,
       ),
     );
+
+    await saveData();
 
     Navigator.pop(context);
   }
@@ -58,7 +72,7 @@ class _AddPageState extends State<AddPage> {
         child: Column(
           children: [
             TextField(
-              controller: idr,
+              controller: id,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Student ID",
@@ -69,7 +83,7 @@ class _AddPageState extends State<AddPage> {
             const SizedBox(height: 30),
 
             TextField(
-              controller: namer,
+              controller: name,
               decoration: const InputDecoration(
                 labelText: "Student Name",
                 border: OutlineInputBorder(),
@@ -79,7 +93,7 @@ class _AddPageState extends State<AddPage> {
             const SizedBox(height: 30),
 
             TextField(
-              controller: bookr,
+              controller: book,
               decoration: const InputDecoration(
                 labelText: "Book Name",
                 border: OutlineInputBorder(),
